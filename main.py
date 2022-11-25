@@ -152,5 +152,5 @@ async def update_data(id: int ):
     finally:
         await database.disconnect()
     if(error):
-        return "에러발생"
+        return "에러발생s"
     return results
