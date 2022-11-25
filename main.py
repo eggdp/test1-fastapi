@@ -21,6 +21,8 @@ class Cat(BaseModel):
 class RequestInsertRegionDTO(BaseModel):
     regionName: str
     
+class RequestUpdatetRegionDTO(BaseModel):
+    regionName: str
     
 app = FastAPI()
 
@@ -113,8 +115,8 @@ async def fetch_data(requestInsertRegionDTO: RequestInsertRegionDTO):
     return results
 
 
-@app.post("/update/{id}")
-async def update_data(id: int ,requestInsertRegionDTO: RequestInsertRegionDTO ):
+@app.put("/update/{id}")
+async def update_data(id: int , requestUpdatetRegionDTO: RequestUpdatetRegionDTO ):
 
     await database.connect()
 
@@ -122,7 +124,7 @@ async def update_data(id: int ,requestInsertRegionDTO: RequestInsertRegionDTO ):
     
     try:
         query = f"""UPDATE REGIONS 
-                    SET REGION_NAME="{requestInsertRegionDTO.regionName}"
+                    SET REGION_NAME="{requestUpdatetRegionDTO.regionName}"
                     WHERE REGION_ID = {id} """
         results = await database.execute(query)
     except:
@@ -134,7 +136,7 @@ async def update_data(id: int ,requestInsertRegionDTO: RequestInsertRegionDTO ):
     return results
 
 
-@app.post("/delete/{id}")
+@app.delete("/delete/{id}")
 async def update_data(id: int ):
 
     await database.connect()
